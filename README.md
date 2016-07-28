@@ -7,8 +7,7 @@
 |2| HTML转js| 页面用js拼接生成时的转换 |V1.0 BETA|用正则排除text的引号|
 
 ##2、HTML转js
-exe分为缩进版和不缩进版，以下为缩进版效果
-效果：
+exe分为缩进版和不缩进版，以下为缩进版效果：
 ```HTML
 <div class="red" id='123' onclick="do()">
 	<h1>"哈哈"</h1>
