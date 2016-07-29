@@ -9,7 +9,7 @@ with open(fname, 'r',encoding='utf8') as f:
     content='';
     for line in f.readlines():
     	if ( line!='\n'):
-	        line=line.replace('\"','\\\"').replace('\'','\\\"');#TODO正则匹配引号
+	        line=line.replace('\"','\\\"').replace('\'','\\\"');
 	        content+="str+=\""+line.rstrip()+'\";\n';#不需要前面缩进就strip()
 root = Tk()
 text = Text(root)
