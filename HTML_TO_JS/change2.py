@@ -1,18 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from tkinter import *
-from tkinter.filedialog import askopenfilename
+def change1():#保留缩进
+	res=addSlash(1)
+	t2.insert(INSERT, res)
+def change2():#不保留缩进
+	res=addSlash(2)
+	t2.insert(INSERT, res)
+def addSlash(type):
+    t2.delete('0.0', END)
+    data=t1.get('1.0', 'end-1c')
+    content=''
+    for line in data.splitlines():
+        if (line and line!='\n'):
+            line=line.replace('\"','\\\"').replace('\'','\\\"')
+            if (type==1):
+            	content+="str+=\""+line.rstrip()+'\";\n'
+            elif (type==2):
+            	content+="str+=\""+line.strip()+'\";\n'
+    return content
 root = Tk()
-text = Text(root)
-fname = askopenfilename(filetypes=(("HTML files", "*.html;*.htm;*.js;*.txt"),("All files", "*.*")))
-with open(fname, 'r',encoding='utf8') as f:
-    content='';
-    for line in f.readlines():
-    	if ( line!='\n'):
-	        line=line.replace('\"','\\\"').replace('\'','\\\"');
-	        content+="str+=\""+line.rstrip()+'\";\n';#不需要前面缩进就strip()
-root = Tk()
-text = Text(root)
-text.insert(INSERT, content)
-text.pack()
+root.title('HTML TO JS')
+root.geometry('1300x600')
+# 输入输出框
+Label(root, text="转换前").grid(row=0,column=1)
+t1=Text(root)
+t1.grid(row=0,column=2)
+Label(root, text="转换后").grid(row=0,column=3)
+t2=Text(root)
+t2.grid(row=0,column=4)
+btn1 = Button(root, text='无缩进转换(no indent)',command=change2)
+btn1.grid(row=2, column=2)
+btn1 = Button(root, text='保留缩进转换(keep indent)',command=change1)
+btn1.grid(row=3, column=2)
 root.mainloop()
