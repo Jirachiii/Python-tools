@@ -1,23 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from tkinter import *
+
 def change1():#保留缩进
 	res=addSlash(1)
 	t2.insert(INSERT, res)
+
 def change2():#不保留缩进
 	res=addSlash(2)
 	t2.insert(INSERT, res)
+
 def addSlash(type):
     t2.delete('0.0', END)
     data=t1.get('1.0', 'end-1c')
-    content=''
-    for line in data.splitlines():
+    content='str = '
+    for index,line in enumerate(data.splitlines()):
         if (line and line!='\n'):
             line=line.replace('\"','\\\"').replace('\'','\\\"')
-            if (type==1):
-            	content+="str+=\""+line.rstrip()+'\";\n'
-            elif (type==2):
-            	content+="str+=\""+line.strip()+'\";\n'
+            if index ==  0:
+                if (type == 1):
+                    content+="\""+line.rstrip()+'\" +\n'
+                elif (type == 2):
+                    content+="\""+line.strip()+'\" +\n'
+                continue
+            if index == len(data.splitlines()) - 1:
+                if (type == 1):
+                    content+="      \""+line.rstrip()+'\" ;\n'
+                elif (type == 2):
+                    content+="      \""+line.strip()+'\" ;\n'
+                continue
+            if (type == 1):
+            	content+="      \""+line.rstrip()+'\" +\n'
+            elif (type == 2):
+            	content+="      \""+line.strip()+'\" +\n'
     return content
 root = Tk()
 root.title('HTML TO JS')
